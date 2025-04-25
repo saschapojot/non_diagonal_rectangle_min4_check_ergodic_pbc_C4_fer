@@ -1,7 +1,7 @@
 #this project checks ergodic condition of a C4 ferroelectric system under PBC
 # the lattice is rectangle!
 # there is  (pi\cdot rij)*(pj \cdot rij) term
-# minima locations a not along [1,1 ], [1,-1], [-1,1],[-1,-1]
+# minima locations are not along [1,1 ], [1,-1], [-1,1],[-1,-1]
 python mk_dir.py, to set coefficients, T, and directories
 
 ##########################################
