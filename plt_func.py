@@ -6,11 +6,16 @@ alpha1=-1*const_multiple
 alpha2=2*const_multiple
 alpha3=-0.5*const_multiple
 
+delta=np.pi/8
 
-def H1(px,py):
+def H1r(px,py):
     val1=alpha1*(px**2+py**2)
     val2=alpha2*(px**2+py**2)**2
-    val3=alpha3*(px*py)**2
+
+    pxr=np.cos(delta)*px+np.sin(delta)*py
+    pyr=-np.sin(delta)*px+np.cos(delta)*py
+
+    val3=alpha3*(pxr*pyr)**2
     return val1+val2+val3
 
 # Generate a grid of points
@@ -19,7 +24,7 @@ y = np.linspace(-0.6, 0.6, 400)
 X, Y = np.meshgrid(x, y)
 
 # Evaluate the function on the grid
-Z = H1(X, Y)
+Z = H1r(X, Y)
 magnitude = Z        # If you need the magnitude (absolute value)
 
 # Plot using imshow
@@ -32,15 +37,15 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.savefig("func.png")
 
-def H1_vec(p_vec):
+def H1r_vec(p_vec):
     px,py=p_vec
-    return H1(px,py)
+    return H1r(px,py)
 
 
 # Provide an initial guess for the variables [x, y]
 initial_guess = [-0.1, -0.2]
 # Use the 'minimize' function from scipy.optimize
-result = minimize(H1_vec, initial_guess, method='BFGS')
+result = minimize(H1r_vec, initial_guess, method='BFGS')
 
 if result.success:
     print("Local minimum found at: ", result.x)
@@ -48,4 +53,4 @@ if result.success:
 else:
     print("Optimization failed:", result.message)
 
-print(H1(1,1))
+# print(H1r(1,1))
